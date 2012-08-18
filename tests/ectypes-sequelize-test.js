@@ -64,6 +64,8 @@ describe('the sequelize strategy', function(done){
 		ectypes.add(projectPlan);
 		ectypes.Project.create().success(function(project){
 			should.exist(project.title);
+			should.exist(project.id);
+		console.log(project.id, project.title); 
 			done();
 		});
 	});

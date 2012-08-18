@@ -1,65 +1,85 @@
+# ectypes-sequelize
+
+A ectypes strategy for Sequelize.js - http://www.sequelizejs.com/. 
+
+Ectypes can be found at http://github.com/nicholasf/ectypes.js
 
 
+## Installation
 
-INFO
+```
+npm install ectypes-sequelize
+```
 
-For now, see test/drafts-test.js to gain an understanding.
+## Explanation
 
-Future plans - hooks, to help build associations.
+Calls to build() and create() on a Sequelize model are supported.
+
+First, create the Sequelize connection and configure it on the ectypes-sequelize strategy. Then load the strategy into ectypes.
+
+```
+var ectypes = require('ectypes');
+var sequelize = new Sequelize('ectypes_test', 'nicholas', null);
+var ectypesSequelize = require('ectypes-sequelize').setup(sequelize);
+
+ectypes.load(ectypesSequelize);
+```
 
 
-Sequelize DSL:
+Once you have defined a ectype for your model:
 
-You've created a model called Project that looks like:
-
+```
+//the Sequelize model definition
 var Project = sequelize.define('Project', {
   title: Sequelize.STRING,
   description: Sequelize.TEXT
 });
 
-You want to be able to auto generate Project models with cool development or test data!
+//the ectype for the Project model
+var projectType = {
+	Project: {
+		title: function(){ return Faker.Name.findName() }
+	}
+};
 
-First, you set up the sequelize strategy with drafts.
+ectypes.add(projectType);
+```
+
+You may then call build() or create() upon it through ectypes to produce the object.
 
 ```
-var draftsSequelize = require('drafts-sequelize');
-drafts.load(draftsSequelize);
-```
-
-Then you draft your data. The only rule is that the name of your draft matches the name of the model you declared in sequelize.
+ectypes.Project.create().success(function(project){
+	console.log(project.id, project.title);  //this logs something like 6 'Autumn Medhurst' (using Faker)
+});
 
 ```
-	drafts.plan(
+
+Use hooks to model associations.
+
+```
+	ectypes.plan(
 		{
 			Project: {
 				title: function(){ return Faker.Name.findName() },
-				description: function(){ return Faker.Lorem.findSentences() };
- 			}
- 		});
-
-	project = drafts.Project.build();
-
-```
-
-
-In the future I'll be adding hooks, which will look something like the below (hopefully a cleaner language):
-
-```
-	drafts.plan(
-		{
-			Project: {
-				title: function(){ return Faker.Name.findName() },
-				description: function(){ return Faker.Lorem.findSentences() };
-				_hooks: {
-					build: {
-						function(project, cb) {
-							Task.create({});
-							project.tasks = task;
-							project.save().success(cb(project));
+				description: function(){ return Faker.Lorem.findSentences() },
+				_hooks: [ 'add a task to a project', function(project, functionName){
+					if (functionName === 'create'){				
+						Task.create().success(function(task){
+							project.task = task;
+							project.save();
+						});
 					}
-				}
- 		});
+				}]
+			}
+		});
 
-	project = drafts.Project.build();
+	project = ectypes.Project.build();
 
 ```
+
+## Running Tests
+
+```
+mocha tests/ectypes-test.js 
+```
+ 	
