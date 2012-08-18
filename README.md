@@ -26,7 +26,7 @@ ectypes.load(ectypesSequelize);
 ```
 
 
-Once you have defined a ectype for your model:
+Once you have defined an ectype for your model:
 
 ```
 //the Sequelize model definition
