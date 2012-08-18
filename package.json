@@ -1,0 +1,13 @@
+{
+  "author": "nicholasf",
+  "name": "eccies-sequelize",
+  "description": "a Sequelize.js strategy for eccies.js",
+  "version": "0.0.1",
+  "main": "lib/eccies-sequelize.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
