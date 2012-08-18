@@ -4,8 +4,16 @@
   "description": "a Sequelize.js strategy for eccies.js",
   "version": "0.0.1",
   "main": "lib/eccies-sequelize.js",
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "sequelize": "~1.5.0",
+    "ectypes": "0.0.1",
+    "lingo": "0.0.5"
+  },
+  "devDependencies": {
+    "Faker": "*",
+    "mocha": "~1.3.2",
+    "should": "~1.1.0"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
