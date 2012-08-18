@@ -80,6 +80,6 @@ Use hooks to model associations.
 ## Running Tests
 
 ```
-mocha tests/ectypes-test.js 
+mocha --ignore-leaks tests/ectypes-sequelize-test.js 
 ```
  	
