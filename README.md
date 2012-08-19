@@ -82,4 +82,8 @@ Use hooks to model associations.
 ```
 mocha --ignore-leaks tests/ectypes-sequelize-test.js 
 ```
+
+## Credits
+
+This library was made while working at Moneytribe - http://moneytribe.com.au.
  	
