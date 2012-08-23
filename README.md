@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/nicholasf/ectypes-sequelize.js.png)](http://travis-ci.org/nicholasf/ectypes-sequelize.js)
 # ectypes-sequelize
 
 A ectypes strategy for Sequelize.js - http://www.sequelizejs.com/. 
